@@ -11,9 +11,14 @@ public class DAOImpl implements IDAO {
 	static {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://192.168.73.21:3306/crawler?characterEncoding=utf8");
+		dataSource.setUrl("jdbc:mysql://192.168.73.21:3306/crawler?characterEncoding=utf8&useSSL=false");
 		dataSource.setUsername("root");
 		dataSource.setPassword("mysql_bshf..0");
+
+
+		//dataSource.setUrl("jdbc:mysql://localhost:3306/crawler?characterEncoding=utf8&useSSL=false");
+		//dataSource.setUsername("root");
+		//dataSource.setPassword("x5");
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 

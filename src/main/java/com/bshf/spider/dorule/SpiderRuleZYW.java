@@ -1,14 +1,14 @@
 package com.bshf.spider.dorule;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.bshf.spider.dorule.abs.SpiderRuleAbstract;
 import com.bshf.spider.entity.MedicinedrugPO;
 import com.bshf.util.DataFormatStatus;
 import com.bshf.util.HttpUtil;
 import com.bshf.util.parser.JsoupHtmlParser;
 import com.bshf.util.savetomysql.ServiceImpl;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class SpiderRuleZYW extends SpiderRuleAbstract {
 	@Override

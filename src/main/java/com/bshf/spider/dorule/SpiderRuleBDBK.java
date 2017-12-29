@@ -2,14 +2,8 @@ package com.bshf.spider.dorule;
 
 import com.bshf.spider.dorule.abs.SpiderRuleAbstract;
 import com.bshf.spider.entity.GoodsPO;
-import com.bshf.util.DataFormatStatus;
 import com.bshf.util.HttpUtil;
-import com.bshf.util.parser.JsoupHtmlParser;
-import com.bshf.util.savetomysql.ServiceImpl;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -28,24 +22,24 @@ public class SpiderRuleBDBK extends SpiderRuleAbstract {
                 || htmlSource.contains("你所访问的页面就如那些遇害的同道") || htmlSource.contains("药品不存在！")) {
             return;
         }
-
-        //第二步 正则匹配出内容
-        Matcher matcherString = patternTarget.matcher(htmlSource);
-        String provide = "未创建";
-        if(matcherString.find()){
-            List<String> nameList = new LinkedList<String>();
-            nameList.add("a"); // 商品名称
-            List<String> nameTxt = JsoupHtmlParser.getNodeContentBySelector(matcherString.group(), nameList, DataFormatStatus.CleanTxt,
-                    true);
-            provide = nameTxt.get(0).toString();
-        }
-
-
-        //设置提供方
-        goodsPO.setProvide(provide);
-        //第三步 往数据库中存
-        ServiceImpl goodsPOServiceImpl = new ServiceImpl();
-        goodsPOServiceImpl.add("goods", goodsPO);
+        System.out.println(htmlSource);
+        ////第二步 正则匹配出内容
+        //Matcher matcherString = patternTarget.matcher(htmlSource);
+        //String provide = "未创建";
+        //if(matcherString.find()){
+        //    List<String> nameList = new LinkedList<String>();
+        //    nameList.add("a"); // 商品名称
+        //    List<String> nameTxt = JsoupHtmlParser.getNodeContentBySelector(matcherString.group(), nameList, DataFormatStatus.CleanTxt,
+        //            true);
+        //    provide = nameTxt.get(0).toString();
+        //}
+        //
+        //
+        ////设置提供方
+        //goodsPO.setProvide(provide);
+        ////第三步 往数据库中存
+        //ServiceImpl goodsPOServiceImpl = new ServiceImpl();
+        //goodsPOServiceImpl.add("goods", goodsPO);
 
     }
 
@@ -55,7 +49,7 @@ public class SpiderRuleBDBK extends SpiderRuleAbstract {
         GoodsPO goodsPO = new GoodsPO();
         goodsPO.setType("汤丸剂10000");
         goodsPO.setName("阿魏消瘤汤");
-        goodsPO.setWebUrl("https://baike.baidu.com/item/阿魏消瘤汤");
+        goodsPO.setWebUrl("https://db.yaozh.com/instruct?name=%E5%AE%A3%E8%82%BA%E6%AD%A2%E5%97%BD%E5%90%88%E5%89%82");
         spiderUtils.runSpider(goodsPO);
     }
 }

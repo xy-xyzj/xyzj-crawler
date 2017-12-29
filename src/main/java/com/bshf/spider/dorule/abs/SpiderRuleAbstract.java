@@ -18,6 +18,11 @@ public class SpiderRuleAbstract implements ISpiderRule {
 	}
 
 	@Override
+	public void runSpider(String srcUrl, Integer num) {
+
+	}
+
+	@Override
 	public void runSpider(GoodsPO goodsPO) throws UnsupportedEncodingException {
 
 	}

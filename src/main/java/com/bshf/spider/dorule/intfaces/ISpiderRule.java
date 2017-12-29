@@ -9,5 +9,7 @@ public interface ISpiderRule {
 
 	public void runSpider(String srcUrl, String loginCookie);
 
+	public void runSpider(String srcUrl, Integer num);
+
 	public void runSpider(GoodsPO goodsPO) throws UnsupportedEncodingException;
 }
