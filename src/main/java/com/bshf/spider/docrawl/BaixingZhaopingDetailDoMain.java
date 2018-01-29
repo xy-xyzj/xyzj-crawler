@@ -20,7 +20,7 @@ public class BaixingZhaopingDetailDoMain {
 
 
 		//	1-1 从Excel表中读取目标城市
-		File file = new File("D:\\数据爬取\\goods_bx_zhaoping0-10.xlsx");
+		File file = new File("D:\\数据爬取\\goods_bx_zhaoping10-30.xlsx");
 		FileInputStream fileInputStream = new FileInputStream(file);
 
 		//	1-2 将Excel表中的记录保存在map对象中
