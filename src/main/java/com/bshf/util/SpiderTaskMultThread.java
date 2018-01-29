@@ -61,7 +61,7 @@ public class SpiderTaskMultThread implements Runnable {
                     spiderRule.runSpider(srcUrl);
                     System.out.println(333);
                 } catch (UnsupportedEncodingException e) {
-
+                    System.out.println("异常了");
                 }
 
             }

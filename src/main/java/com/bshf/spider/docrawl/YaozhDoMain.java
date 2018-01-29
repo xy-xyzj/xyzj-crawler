@@ -3,6 +3,7 @@ package com.bshf.spider.docrawl;
 import com.bshf.spider.dorule.SpiderRuleYaozh;
 import com.bshf.spider.entity.GoodsPO;
 import com.bshf.util.ImportExcelUtil;
+import com.bshf.util.SpiderTaskMultThread;
 import com.bshf.util.UrlUtil;
 
 import java.io.File;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class YaozhDoMain {
 	public static void main  (String[] args) throws Exception {
@@ -30,10 +33,13 @@ public class YaozhDoMain {
 			goodsPO.setWebUrl(baseUrl+ UrlUtil.getURLEncoderString(ls.get(i).get("name").toString()));
 			goodsPOList.add(goodsPO);
 		}
-		for ( GoodsPO goodsPO : goodsPOList) {
+
+		ExecutorService cachedThreadPool = Executors.newFixedThreadPool(3);
+		for (final GoodsPO goodsPO : goodsPOList) {
 			SpiderRuleYaozh spiderRuleYaozh = new SpiderRuleYaozh();
-			spiderRuleYaozh.runSpider(goodsPO);
+			cachedThreadPool.execute(new SpiderTaskMultThread( goodsPO,spiderRuleYaozh));
 		}
+		cachedThreadPool.shutdown();
 	}
 
 }

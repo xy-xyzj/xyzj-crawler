@@ -1,8 +1,5 @@
 package com.bshf.spider.dorule;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.bshf.spider.dorule.abs.SpiderRuleAbstract;
 import com.bshf.spider.entity.MedicinePO;
 import com.bshf.util.DataFormatStatus;
@@ -10,7 +7,11 @@ import com.bshf.util.HttpUtil;
 import com.bshf.util.parser.JsoupHtmlParser;
 import com.bshf.util.savetomysql.ServiceImpl;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class SpiderRuleDx extends SpiderRuleAbstract {
+	@Override
 	public void runSpider(String srcUrl) {
 		String htmlSource = HttpUtil.getPageCode(srcUrl, "utf-8");
 		List<String> selList = new LinkedList<String>();

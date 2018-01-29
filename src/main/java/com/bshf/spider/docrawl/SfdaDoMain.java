@@ -32,10 +32,11 @@ public class SfdaDoMain {
 			// 国产药品
 			String currentPage ="http://app1.sfda.gov.cn/datasearch/face3/search.jsp?tableId=25&State=1&bcId=124356560303886909015737447882&State=1&curstart="+i+"&State=1&tableName=TABLE25&State=1&viewtitleName=COLUMN167&State=1&viewsubTitleName=COLUMN821,COLUMN170,COLUMN166&State=1&tableView=%25E5%259B%25BD%25E4%25BA%25A7%25E8%258D%25AF%25E5%2593%2581&State=1&cid=0&State=1&ytableId=0&State=1&searchType=search&State=1";
 
+
 			srcUrls.add(currentPage);
 		}
 		System.out.println("爬取");
-		ExecutorService cachedThreadPool = Executors.newFixedThreadPool(5);
+		ExecutorService cachedThreadPool = Executors.newFixedThreadPool(3);
 		for (final String srcUrl : srcUrls) {
 			cachedThreadPool.execute(new SpiderTaskMultThread(srcUrl, spiderRule));
 		}
