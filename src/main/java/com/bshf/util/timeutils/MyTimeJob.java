@@ -30,7 +30,7 @@ public class MyTimeJob extends TimerTask {
         List<IPMessage> ipMessages = new ArrayList<>();
 
         //首先使用本机ip爬取xici代理网第一页
-        ipMessages = URLFecter.urlParse(ipMessages,3);
+        ipMessages = URLFecter.urlParse(ipMessages,30);
 
       /*  //对得到的IP进行筛选，将IP速度在两秒以内的并且类型是https的留下，其余删除
         ipMessages = IPFilter.Filter(ipMessages);

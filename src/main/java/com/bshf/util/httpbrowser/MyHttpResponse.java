@@ -115,4 +115,37 @@ public class MyHttpResponse {
 
         return entity;
     }
+
+    //对上一个方法的重载，使用本机ip进行网站爬取
+    public static String getMyHtml(String url) {
+        String entity = null;
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        //设置代理访问和超时处理
+
+        RequestConfig config = RequestConfig.custom().setConnectTimeout(3000).
+                setSocketTimeout(3000).build();
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.setConfig(config);
+
+
+        try {
+            //客户端执行httpGet方法，返回响应
+            CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
+
+            //得到服务响应状态码
+            if (httpResponse.getStatusLine().getStatusCode() == 200) {
+                entity = EntityUtils.toString(httpResponse.getEntity(), "utf-8");
+            }
+
+            httpResponse.close();
+            httpClient.close();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return entity;
+    }
 }
