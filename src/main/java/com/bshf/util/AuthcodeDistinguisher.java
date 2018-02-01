@@ -2,10 +2,17 @@ package com.bshf.util;
 
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
 import sun.misc.BASE64Decoder;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
@@ -25,15 +32,62 @@ import java.io.OutputStream;
  */
 public class AuthcodeDistinguisher {
 
-    public static void main(String[] a) {
+    private static  void downloadImage() throws Exception {
+        HttpClient httpClient = new DefaultHttpClient();
+        for (int i = 0; i < 10; i++) {
+            String url = "http://beijing.qd8.com.cn/jobs/ajax/showphone.ashx?v=2JG4ozQd13oYUdXFs0YrOQ%3d%3d";
+            HttpGet getMethod = new HttpGet(url);
+            try {
+                HttpResponse response = httpClient.execute(getMethod, new BasicHttpContext());
+                HttpEntity entity = response.getEntity();
+                InputStream instream = entity.getContent();
+                OutputStream outstream = new FileOutputStream(new File("d:/", i + ".gif"));
+                int l = -1;
+                byte[] tmp = new byte[2048];
+                while ((l = instream.read(tmp)) != -1) {
+                    outstream.write(tmp);
+                }
+                outstream.close();
+            } finally {
+                getMethod.releaseConnection();
+            }
+        }
+
+        System.out.println("下载验证码完毕！");
+    }
+
+    public static String getString(String url) {
         Tesseract tesseract = new Tesseract();
         tesseract.setDatapath("D:\\java\\workspace\\learn\\crawler\\tessdata");
         try {
-            String result = tesseract.doOCR(new File("D:\\java\\workspace\\learn\\crawler\\yzm\\captchaAction.jpg"));
+            //"http://beijing.qd8.com.cn/jobs/ajax/showphone.ashx?v=2JG4ozQd13oYUdXFs0YrOQ%3d%3d"
+            File file = new File(url);
+            String result = tesseract.doOCR(file);
             System.out.println(result);
+            return result;
         } catch (TesseractException e) {
             System.err.println(e.getMessage());
         }
+        return null;
+    }
+
+
+    public static void main(String[] a) throws  Exception {
+        downloadImage();
+
+       /* Tesseract tesseract = new Tesseract();
+        tesseract.setDatapath("D:\\java\\workspace\\learn\\crawler\\tessdata");
+        try {
+            //String result = tesseract.doOCR(new File("D:\\java\\workspace\\learn\\crawler\\yzm\\showphone.gif"));
+            URL url = new URL("http://beijing.qd8.com.cn/jobs/ajax/showphone.ashx?v=2JG4ozQd13oYUdXFs0YrOQ%3d%3d");
+
+
+            String file = url.getFile();
+            String result = tesseract.doOCR(file);
+            System.out.println(result);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }*/
     }
 
     /**

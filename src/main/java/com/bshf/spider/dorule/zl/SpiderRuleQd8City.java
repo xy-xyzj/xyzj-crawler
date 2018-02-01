@@ -9,29 +9,29 @@ import com.bshf.util.savetomysql.ServiceImpl;
 import java.util.List;
 
 /**
- * 百姓网 城市
- * http://www.baixing.com/?changeLocation=yes&return=
+ * 快点8城市
+ * http://www.qd8.com.cn/index.html
  *
  * */
-public class SpiderRuleBaixingCity extends SpiderRuleAbstract {
+public class SpiderRuleQd8City extends SpiderRuleAbstract {
 	@Override
 	public void runSpider(GoodsPO goodsPO)  {
 		try {
 
-			String htmlSource = MyHttpResponse.getHtml(goodsPO.getWebUrl());
+			String htmlSource = MyHttpResponse.getMyHtml(goodsPO.getWebUrl());
 
 			//	1-2 输出查看效果
 			System.out.println("htmlSource=============="+htmlSource);
 
 			//	2-1 提取有效内容
-
-			String rgex = "<a href='//(.*?)'>";
+			//href="http://xiamen.qd8.com.cn/"
+			String rgex = "<a href=\"(.*?)\"";
 			List<String> stringList = RegexUtil.getSubUtil(htmlSource, rgex);
 			System.out.println(stringList.toString());
 			for (String mystr : stringList) {
 				goodsPO.setName(mystr);
 				ServiceImpl goodsPOServiceImpl = new ServiceImpl();
-				goodsPOServiceImpl.add("goods_bx_city", goodsPO);
+				goodsPOServiceImpl.add("goods_qd8_city", goodsPO);
 
 			}
 		}catch (Exception e){
@@ -44,10 +44,10 @@ public class SpiderRuleBaixingCity extends SpiderRuleAbstract {
 
 	public static void main(String[] args) {
 		GoodsPO goodsPO = new GoodsPO();
-		String srcUrl = "http://www.baixing.com/?changeLocation=yes&return=";
+		String srcUrl = "http://www.qd8.com.cn/index.html";
 		goodsPO.setWebUrl(srcUrl);
 		goodsPO.setOrderNum("1");
-		SpiderRuleBaixingCity spiderUtils = new SpiderRuleBaixingCity();
+		SpiderRuleQd8City spiderUtils = new SpiderRuleQd8City();
 		spiderUtils.runSpider(goodsPO);
 	}
 }
