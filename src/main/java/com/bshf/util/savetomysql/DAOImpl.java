@@ -5,20 +5,30 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ResourceBundle;
 
 public class DAOImpl implements IDAO {
 	static JdbcTemplate jdbcTemplate = null;
+	private static String MYSQL_URL;
+	private static String MYSQL_USERNAME;
+	private static String MYSQL_PASSWORD;
+	//加载配置文件
+	private static ResourceBundle rb = ResourceBundle.getBundle("db-config");
+
 	static {
+
+		MYSQL_URL = rb.getString("mysql.url");
+		MYSQL_USERNAME = rb.getString("mysql.username");
+		MYSQL_PASSWORD = rb.getString("mysql.password");
+
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost/crawler?characterEncoding=utf8&useSSL=false");
-		dataSource.setUsername("root");
-		dataSource.setPassword("x5");
+		dataSource.setUrl(MYSQL_URL);
+		dataSource.setUsername(MYSQL_USERNAME);
+		dataSource.setPassword(MYSQL_PASSWORD);
 
 
-		//dataSource.setUrl("jdbc:mysql://localhost:3306/crawler?characterEncoding=utf8&useSSL=false");
-		//dataSource.setUsername("root");
-		//dataSource.setPassword("x5");
+
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
