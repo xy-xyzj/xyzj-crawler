@@ -1,10 +1,10 @@
 package com.bshf.spider.docrawl.cj;
 
-import com.bshf.spider.dorule.cj.SpiderRuleYaozh;
-import com.bshf.spider.entity.GoodsPO;
-import com.bshf.util.ImportExcelUtil;
-import com.bshf.util.SpiderTaskMultThread;
-import com.bshf.util.UrlUtil;
+import com.bshf.spider.dorule.cj.YaozhSpiderRule;
+import com.bshf.util.entity.GoodsPO;
+import com.bshf.util.orther.ImportExcelUtil;
+import com.bshf.util.orther.SpiderTaskMultThread;
+import com.bshf.util.orther.UrlUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,8 +40,8 @@ public class YaozhDoMain {
 
 		ExecutorService cachedThreadPool = Executors.newFixedThreadPool(30);
 		for (final GoodsPO goodsPO : goodsPOList) {
-			SpiderRuleYaozh spiderRuleYaozh = new SpiderRuleYaozh();
-			cachedThreadPool.execute(new SpiderTaskMultThread( goodsPO,spiderRuleYaozh));
+			YaozhSpiderRule yaozhSpiderRule = new YaozhSpiderRule();
+			cachedThreadPool.execute(new SpiderTaskMultThread( goodsPO, yaozhSpiderRule));
 		}
 		cachedThreadPool.shutdown();
 	}

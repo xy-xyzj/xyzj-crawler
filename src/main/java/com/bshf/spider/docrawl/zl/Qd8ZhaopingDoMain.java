@@ -1,9 +1,9 @@
 package com.bshf.spider.docrawl.zl;
 
-import com.bshf.spider.dorule.zl.SpiderRuleBaixingZhaoping;
-import com.bshf.spider.entity.GoodsPO;
-import com.bshf.util.ImportExcelUtil;
-import com.bshf.util.SpiderTaskMultThread;
+import com.bshf.spider.dorule.zl.BaixingZhaopingSpiderRule;
+import com.bshf.util.entity.GoodsPO;
+import com.bshf.util.orther.ImportExcelUtil;
+import com.bshf.util.orther.SpiderTaskMultThread;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,8 +45,8 @@ public class Qd8ZhaopingDoMain {
 		ExecutorService cachedThreadPool = Executors.newFixedThreadPool(50);
 
 		for (final GoodsPO goodsPO : goodsPOList) {
-			SpiderRuleBaixingZhaoping spiderRuleBaixingZhaoping = new SpiderRuleBaixingZhaoping();
-			cachedThreadPool.execute(new SpiderTaskMultThread(goodsPO, spiderRuleBaixingZhaoping));
+			BaixingZhaopingSpiderRule baixingZhaopingSpiderRule = new BaixingZhaopingSpiderRule();
+			cachedThreadPool.execute(new SpiderTaskMultThread(goodsPO, baixingZhaopingSpiderRule));
 		}
 		cachedThreadPool.shutdown();
 	}

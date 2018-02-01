@@ -1,9 +1,9 @@
 package com.bshf.spider.docrawl.cj;
 
-import com.bshf.spider.dorule.cj.SpiderRuleDrugsDetail;
-import com.bshf.spider.entity.GoodsPO;
-import com.bshf.util.ImportExcelUtil;
-import com.bshf.util.SpiderTaskMultThread;
+import com.bshf.spider.dorule.cj.DrugsDetailSpiderRule;
+import com.bshf.util.entity.GoodsPO;
+import com.bshf.util.orther.ImportExcelUtil;
+import com.bshf.util.orther.SpiderTaskMultThread;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,7 +48,7 @@ public class DrugsDoMain {
 		//2-1启动线程进行数据爬取
 		ExecutorService cachedThreadPool = Executors.newFixedThreadPool(20);
 		for (final GoodsPO goodsPO : goodsPOList) {
-			SpiderRuleDrugsDetail spiderRuleDrugsDetail = new SpiderRuleDrugsDetail();
+			DrugsDetailSpiderRule spiderRuleDrugsDetail = new DrugsDetailSpiderRule();
 			cachedThreadPool.execute(new SpiderTaskMultThread(goodsPO, spiderRuleDrugsDetail));
 		}
 		cachedThreadPool.shutdown();

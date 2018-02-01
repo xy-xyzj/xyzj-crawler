@@ -1,9 +1,9 @@
 package com.bshf.util.timeutils;
 
-import com.bshf.spider.dorule.abs.SpiderRuleAbstract;
-import com.bshf.spider.entity.GoodsPO;
+import com.bshf.util.abs.SpiderRuleAbstract;
+import com.bshf.util.entity.GoodsPO;
 import com.bshf.util.IPModel.IPMessage;
-import com.bshf.util.SpiderTaskMultThread;
+import com.bshf.util.orther.SpiderTaskMultThread;
 import com.bshf.util.database.MyRedis;
 import com.bshf.util.httpbrowser.MyHttpResponse;
 import com.bshf.util.savetomysql.ServiceImpl;
@@ -48,7 +48,7 @@ public class TargetIp extends SpiderRuleAbstract {
 
         // 存放目标连接
         List<GoodsPO> goodsPOList = new ArrayList<>();
-        for (int i = 0; i < 200000; i++) {
+        for (int i = 0; i < 300000; i++) {
             String currentPage = "http://maoxian.baixing.com";
             GoodsPO goodsPO = new GoodsPO();
             goodsPO.setWebUrl(currentPage);
