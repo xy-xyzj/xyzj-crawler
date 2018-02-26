@@ -38,17 +38,17 @@ public class MyHttpResponse {
         HttpGet httpGet = new HttpGet(url);
         httpGet.setConfig(config);
 
-        httpGet.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;" +
-                "q=0.9,image/webp,*/*;q=0.8");
-        httpGet.setHeader("Accept-Encoding", "gzip, deflate, sdch");
-        httpGet.setHeader("Accept-Language", "zh-CN,zh;q=0.8");
-        httpGet.setHeader("Cache-Control", "no-cache");
-        httpGet.setHeader("Connection", "keep-alive");
-        // httpGet.setHeader("Host", "www.xicidaili.com");
-        httpGet.setHeader("Pragma", "no-cache");
-        httpGet.setHeader("Upgrade-Insecure-Requests", "1");
-        httpGet.setHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
-                "(KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
+        //httpGet.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;" +
+        //        "q=0.9,image/webp,*/*;q=0.8");
+        //httpGet.setHeader("Accept-Encoding", "gzip, deflate, sdch");
+        //httpGet.setHeader("Accept-Language", "zh-CN,zh;q=0.8");
+        //httpGet.setHeader("Cache-Control", "no-cache");
+        //httpGet.setHeader("Connection", "keep-alive");
+        //// httpGet.setHeader("Host", "www.xicidaili.com");
+        //httpGet.setHeader("Pragma", "no-cache");
+        //httpGet.setHeader("Upgrade-Insecure-Requests", "1");
+        //httpGet.setHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
+        //        "(KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
 
         try {
             //客户端执行httpGet方法，返回响应
@@ -135,7 +135,7 @@ public class MyHttpResponse {
 
             //得到服务响应状态码
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                entity = EntityUtils.toString(httpResponse.getEntity(), "utf-8");
+                entity = EntityUtils.toString(httpResponse.getEntity(), "gb2312");
             }
 
             httpResponse.close();

@@ -65,7 +65,7 @@ public class MyTimeJob extends TimerTask {
 
 
         //	1-1 从Excel表中读取目标数据
-        File file = new File("D:\\java\\workspace\\learn\\crawler\\record\\address.xlsx");
+        File file = new File("/Volumes/life/workspace/IdeaProjects/my-crawler/record/address.xlsx");
         FileInputStream fileInputStream = new FileInputStream(file);
 
         //	1-2 将Excel表中的记录保存在map对象中
