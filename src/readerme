@@ -1,6 +1,0 @@
-1、修改com.bshf.util.savetomysql.DAOImpl 中数据库连接信息
-2、单个文档保存com.bshf.spider.dorule.SpiderRuleKAD 需要跟上表名称
-	medicinepbwServiceImpl.add("medicinekad", medicinekadPO); medicinekad 表示数据库表名称
-3、批量保存com.bshf.spider.docrawl.KADDoMain
-	分析路径 来源 多线程保存
-	
