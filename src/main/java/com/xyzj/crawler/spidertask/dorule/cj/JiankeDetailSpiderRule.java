@@ -42,6 +42,8 @@ public class JiankeDetailSpiderRule extends SpiderRuleAbstract {
 			ServiceImpl goodsPOServiceImpl = new ServiceImpl();
 			goodsPOServiceImpl.add("goods_jianke_detail_2", goodsPO);
 
+			System.out.println(111);
+
 		}catch (Exception e){
 			//不处理异常
 		}

@@ -81,8 +81,9 @@ public class MyHttpResponse {
                 setSocketTimeout(3000).build();
         HttpGet httpGet = new HttpGet(url);
         httpGet.setConfig(config);
+        httpGet.setHeader("Content-type", "text/javascript");
 
-        httpGet.setHeader("Accept-Encoding", "gzip, deflate, sdch");
+       /* httpGet.setHeader("Accept-Encoding", "gzip, deflate, sdch");
         httpGet.setHeader("Accept-Language", "zh-CN,zh;q=0.8");
         httpGet.setHeader("Cache-Control", "no-cache");
         httpGet.setHeader("Connection", "keep-alive");
@@ -92,7 +93,7 @@ public class MyHttpResponse {
         httpGet.setHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 " +
                 "(KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
 
-
+*/
 
 
 

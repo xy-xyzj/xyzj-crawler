@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * 用药参考网
- * http://drugs.medlive.cn/index.jsp
+ * https://www.jianke.com/
  * 根据关键字 取得链接 并取得其内容
  * */
 public class JiankeSpiderRule extends SpiderRuleAbstract {
