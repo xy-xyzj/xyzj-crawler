@@ -52,7 +52,7 @@ public class RedisDB {
     }
 
     //获取Jedis实例
-    public synchronized static Jedis getJedis()throws Exception {
+    public synchronized static Jedis getJedis() {
         //连接本地的 Redis 服务
         //Jedis jedis = new Jedis(addr, port);
 

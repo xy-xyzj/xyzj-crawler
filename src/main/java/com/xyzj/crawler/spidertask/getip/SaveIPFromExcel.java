@@ -48,7 +48,7 @@ public class SaveIPFromExcel {
 
         MyRedis redis = new MyRedis();
         redis.deleteKey("IPPool");
-        redis.setIPToList(ipMessages);
-        System.out.println(redis.getIPByList().getIPAddress()+":"+redis.getIPByList().getIPPort());
+        redis.setIpToList(ipMessages);
+        System.out.println(redis.getIpByList().getIPAddress()+":"+redis.getIpByList().getIPPort());
     }
 }

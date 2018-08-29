@@ -34,10 +34,10 @@ public class SaveFromHtml {
         redis.deleteKey("IPPool");
 
         //将爬取下来的ip信息写进Redis数据库中(List集合)
-        redis.setIPToList(ipMessages);
+        redis.setIpToList(ipMessages);
 
         //从redis数据库中随机拿出一个IP
-        IPMessage ipMessage = redis.getIPByList();
+        IPMessage ipMessage = redis.getIpByList();
         System.out.println(ipMessage.getIPAddress());
         System.out.println(ipMessage.getIPPort());
         redis.close();

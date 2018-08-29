@@ -27,9 +27,9 @@ public class SelectTargetIP extends SpiderRuleAbstract {
             // 设置代理IP
             MyRedis redis = new MyRedis();
             //从redis数据库中随机拿出一个IP
-            IPMessage ipMessage = redis.getIPByList();
+            IPMessage ipMessage = redis.getIpByList();
             redis.close();
-            String htmlSource = MyHttpResponse.getHtml(goodsPO.getWebUrl(), ipMessage.getIPAddress(), ipMessage.getIPPort());
+            String htmlSource = MyHttpResponse.getHtmlWithProxyIp(goodsPO.getWebUrl(),"utf-8", ipMessage.getIPAddress(), ipMessage.getIPPort(),null);
             if (!StringUtils.isEmpty(htmlSource)) {
                 goodsPO.setName(ipMessage.getIPAddress());
                 goodsPO.setProvide(ipMessage.getIPPort());

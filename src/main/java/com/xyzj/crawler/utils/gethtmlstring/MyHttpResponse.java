@@ -11,11 +11,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Created by paranoid on 17-4-10.
  * 进行代理访问
- *
+ * <p>
  * setConnectTimeout：设置连接超时时间，单位毫秒.
  * setConnectionRequestTimeout：设置从connect Manager获取Connection 超时时间，单位毫秒.
  * 这个属性是新加的属性，因为目前版本是可以共享连接池的.
@@ -26,7 +27,7 @@ import org.apache.http.util.EntityUtils;
 @Slf4j
 public class MyHttpResponse {
 
-    public static String getHtmlWithProxyIp( String url, String ip, String port,String charset,Map<String,String> headerInfos) {
+    public static String getHtmlWithProxyIp(String url, String ip, String port, String charset, Map<String, String> headerInfos) {
 
         if (StringUtils.isEmpty(charset)) {
             charset = "utf-8";
@@ -44,10 +45,11 @@ public class MyHttpResponse {
                 setSocketTimeout(3000).build();
         HttpGet httpGet = new HttpGet(url);
         httpGet.setConfig(config);
-
         // 遍历map 设置请求头信息
-        for (String key : headerInfos.keySet()) {
-            httpGet.setHeader(key, headerInfos.get(key));
+        if (!CollectionUtils.isEmpty(headerInfos)) {
+            for (String key : headerInfos.keySet()) {
+                httpGet.setHeader(key, headerInfos.get(key));
+            }
         }
 
         try {
@@ -61,13 +63,13 @@ public class MyHttpResponse {
             httpResponse.close();
             httpClient.close();
         } catch (Exception e) {
-            log.error("Exception:{}",e);
+            log.error("Exception:{}", e);
         }
 
         return entity;
     }
 
-    public static String getHtml( String url, String charset,Map<String,String> headerInfos) {
+    public static String getHtml(String url, String charset, Map<String, String> headerInfos) {
 
         if (StringUtils.isEmpty(charset)) {
             charset = "utf-8";
@@ -82,8 +84,10 @@ public class MyHttpResponse {
         httpGet.setConfig(config);
 
         // 遍历map 设置请求头信息
-        for (String key : headerInfos.keySet()) {
-            httpGet.setHeader(key, headerInfos.get(key));
+        if (!CollectionUtils.isEmpty(headerInfos)) {
+            for (String key : headerInfos.keySet()) {
+                httpGet.setHeader(key, headerInfos.get(key));
+            }
         }
 
         try {
@@ -97,7 +101,7 @@ public class MyHttpResponse {
             httpResponse.close();
             httpClient.close();
         } catch (Exception e) {
-            log.error("Exception:{}",e);
+            log.error("Exception:{}", e);
         }
 
         return entity;

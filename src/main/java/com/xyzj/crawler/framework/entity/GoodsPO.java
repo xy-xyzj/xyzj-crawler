@@ -24,6 +24,9 @@ public class GoodsPO implements Serializable {
 		/** 排序列 */
 	    private String orderNum;
 
+
+
+
 		public String getOrderNum() {
 			return orderNum;
 		}
@@ -67,7 +70,5 @@ public class GoodsPO implements Serializable {
 	    public void setProvide(String provide) {
 	        this.provide = provide;
 	    }
-
-
 
 }
