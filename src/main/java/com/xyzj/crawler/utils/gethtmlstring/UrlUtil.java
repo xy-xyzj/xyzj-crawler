@@ -16,7 +16,7 @@ public class UrlUtil {
      * @author lifq
      * @date 2015-3-17 下午04:09:51
      */
-    public static String getURLDecoderString(String str) {
+    private static String getURLDecoderString(String str) {
         String result = "";
         if (null == str) {
             return "";
@@ -50,7 +50,6 @@ public class UrlUtil {
 
     /**
      * 
-     * @return void
      * @author lifq
      * @date 2015-3-17 下午04:09:16
      */

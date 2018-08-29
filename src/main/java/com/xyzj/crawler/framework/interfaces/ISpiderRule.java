@@ -10,13 +10,12 @@ import com.xyzj.crawler.framework.entity.GoodsPO;
  * */
 public interface ISpiderRule {
 
+	 void runSpider(String srcUrl) ;
 
-	public void runSpider(String srcUrl) ;
-
-	public void runSpider(String srcUrl, String loginCookie);
+	 void runSpider(String srcUrl, String loginCookie);
 
 
-	public void runSpider(String srcUrl, Integer num);
+	 void runSpider(String srcUrl, Integer num);
 
-	public void runSpider(GoodsPO goodsPO);
+	 void runSpider(GoodsPO goodsPO);
 }

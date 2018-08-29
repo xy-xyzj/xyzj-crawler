@@ -20,7 +20,7 @@ public class URLFecter {
     public static boolean urlParse(String url, String ip, String port,
                                            List<IPMessage> ipMessages1) {
         //调用一个类使其返回html源码
-        String html = MyHttpResponse.getHtml(url, ip, port);
+        String html = MyHttpResponse.getHtmlWithProxyIp(url, ip, port,"utf-8",null);
 
         if(html != null) {
             //将html解析成DOM结构
@@ -59,7 +59,7 @@ public class URLFecter {
 
         for (int j = 1; j <size+1; j++) {
             String url = "http://www.xicidaili.com/nn/"+j;
-            String html = MyHttpResponse.getHtml(url);
+            String html = MyHttpResponse.getHtml(url,"utf-8",null);
 
             //将html解析成DOM结构
             Document document = Jsoup.parse(html);

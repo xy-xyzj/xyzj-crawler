@@ -1,17 +1,19 @@
 package com.xyzj.crawler.framework.savetomysql;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ResourceBundle;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+@Slf4j
 public class DAOImpl implements IDAO {
-	static JdbcTemplate jdbcTemplate = null;
-	private static String MYSQL_URL;
-	private static String MYSQL_USERNAME;
-	private static String MYSQL_PASSWORD;
+	private static JdbcTemplate jdbcTemplate = null;
+	private final static String MYSQL_URL;
+	private final static String MYSQL_USERNAME;
+	private final static String MYSQL_PASSWORD;
+
 	//加载配置文件
 	private static ResourceBundle rb = ResourceBundle.getBundle("db-config");
 
@@ -27,15 +29,16 @@ public class DAOImpl implements IDAO {
 		dataSource.setUsername(MYSQL_USERNAME);
 		dataSource.setPassword(MYSQL_PASSWORD);
 
-
-
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
+	@Override
 	public boolean add(String tableName,Object PO) {
 		try {
 			save(getSQL(tableName,PO), getValues(PO));
 		} catch (Exception e) {
+			log.error("exception: {}",e);
+
 		}
 		return true;
 	}
@@ -89,6 +92,7 @@ public class DAOImpl implements IDAO {
 			int count = jdbcTemplate.update(sql, params);
 			System.out.println(count);
 		} catch (Exception e) {
+			log.error("exception: {}",e);
 		}
 	}
 

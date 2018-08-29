@@ -7,11 +7,11 @@ public class ServiceImpl implements IService {
 		this.DAOImpl = DAOImpl;
 	}
 
+	@Override
 	public boolean add(String tableName,Object PO) {
 		DAOImpl = new DAOImpl();
 		return DAOImpl.add(tableName,PO);
 	}
-
 
 
 }

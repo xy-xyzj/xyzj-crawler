@@ -6,6 +6,7 @@ import com.xyzj.crawler.spidertask.dorule.wx.SfdaListSpiderRule;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -27,11 +28,15 @@ public class SfdaDoMain {
 			goodsPOList.add(goodsPO);
 		}
 
+		CountDownLatch countDownLatch = new CountDownLatch(20000);
 		ExecutorService cachedThreadPool = Executors.newFixedThreadPool(1);
 		for (final GoodsPO goodsPO : goodsPOList) {
 			SfdaListSpiderRule  sfdaListSpiderRule= new SfdaListSpiderRule();
 			cachedThreadPool.execute(new SpiderTaskMultThread( goodsPO, sfdaListSpiderRule));
+			countDownLatch.countDown();
 		}
+
+		countDownLatch.wait();
 		cachedThreadPool.shutdown();
 	}
 

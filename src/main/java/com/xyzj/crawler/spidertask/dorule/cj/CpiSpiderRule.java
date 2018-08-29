@@ -23,7 +23,7 @@ public class CpiSpiderRule extends SpiderRuleAbstract {
 		try {
 			String htmlSource = HttpClientHelper.post(goodsPO.getWebUrl(),null);
 			//	1-2 输出查看效果
-			//System.out.println("htmlSource=============="+htmlSource);
+			System.out.println("htmlSource=============="+htmlSource);
 			JSONObject jsonObject = JSON.parseObject(htmlSource);
 			JSONArray datas = jsonObject.getJSONArray("datas");
 			for (int i = 0; i < datas.size(); i++) {
@@ -40,7 +40,7 @@ public class CpiSpiderRule extends SpiderRuleAbstract {
 
 	public static void main(String[] args) {
 		GoodsPO goodsPO = new GoodsPO();
-		String srcUrl = "http://www.cpi.gov.cn/admin/tripDataFront/TripSearchAction_findDataListToTrip.action?d=0.781862019862791&id=2013122314504819541&query=&dben=ZYK2009&start=1&pagesize=10&dbname=ZYK2009&idshow=2013122314504819541&sorts=time";
+		String srcUrl = "https://coding.imooc.com/lesson/223.html#mid=14557";
 		goodsPO.setWebUrl(srcUrl);
 		goodsPO.setOrderNum("1");
 		CpiSpiderRule spiderUtils = new CpiSpiderRule();

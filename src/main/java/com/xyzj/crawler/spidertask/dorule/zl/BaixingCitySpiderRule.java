@@ -18,7 +18,7 @@ public class BaixingCitySpiderRule extends SpiderRuleAbstract {
 	public void runSpider(GoodsPO goodsPO)  {
 		try {
 
-			String htmlSource = MyHttpResponse.getHtml(goodsPO.getWebUrl());
+			String htmlSource = MyHttpResponse.getMyHtml(goodsPO.getWebUrl());
 
 			//	1-2 输出查看效果
 			System.out.println("htmlSource=============="+htmlSource);

@@ -5,7 +5,10 @@ import com.xyzj.crawler.framework.entity.GoodsPO;
 
 /**
  *  抽象类
+ *  单个页面内容提取
  *
+ *
+ *  @author liuyangyang
  * */
 public class SpiderRuleAbstract implements ISpiderRule {
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * PO
+ * 封装存入mysql数据库的数据内容
  *
  * @author liuyangyang@bshf360.com
  * @since 2017-12-05 11:49

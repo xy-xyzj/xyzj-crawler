@@ -3,38 +3,36 @@ package com.xyzj.crawler.utils.proxyip.database;
 
 import com.xyzj.crawler.utils.proxyip.IPModel.IPMessage;
 import com.xyzj.crawler.utils.proxyip.IPModel.SerializeUtil;
-import redis.clients.jedis.Jedis;
-
 import java.util.List;
-
-import static java.lang.System.out;
+import lombok.extern.slf4j.Slf4j;
+import redis.clients.jedis.Jedis;
 
 /**
  * Created by hg_yi on 17-8-9.
  *
  *
  */
+@Slf4j
 public class MyRedis {
     Jedis jedis = RedisDB.getJedis();
 
     //将ip信息保存在Redis列表中
-    public void setIPToList(List<IPMessage> ipMessages) {
+    public void setIpToList(List<IPMessage> ipMessages) {
         for (IPMessage ipMessage : ipMessages) {
             //首先将ipMessage进行序列化
             byte[] bytes = SerializeUtil.serialize(ipMessage);
-
             jedis.rpush("IPPool".getBytes(), bytes);
         }
     }
 
     //将Redis中保存的对象进行反序列化
-    public IPMessage getIPByList() {
-        int rand = (int)(Math.random()*jedis.llen("IPPool"));
+    public IPMessage getIpByList() {
+        int rand = (int)(Math.random()*jedis.llen("IpPool"));
         Object o = SerializeUtil.unserialize(jedis.lindex("IPPool".getBytes(), rand));
         if (o instanceof IPMessage) {
             return (IPMessage)o;
         } else {
-            out.println("不是IPMessage的一个实例~");
+            log.info("不是IPMessage的一个实例~");
             return null;
         }
     }

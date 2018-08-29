@@ -23,7 +23,7 @@ public class Zhongyaocai360DoMain extends SpiderRuleAbstract {
 	public void runSpider(GoodsPO goodsPO)  {
 		try {
 			// 1-1 取得页面元素
-			String htmlSource = MyHttpResponse.getMyHtml(goodsPO.getWebUrl());
+			String htmlSource = MyHttpResponse.getHtml(goodsPO.getWebUrl(),"utf-8",null);
 
 			// 1-2 输出查看效果
 			// System.out.println("htmlSource=============="+htmlSource);

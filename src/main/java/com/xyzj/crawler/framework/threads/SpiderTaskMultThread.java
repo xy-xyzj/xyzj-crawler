@@ -2,13 +2,27 @@ package com.xyzj.crawler.framework.threads;
 
 import com.xyzj.crawler.framework.interfaces.ISpiderRule;
 import com.xyzj.crawler.framework.entity.GoodsPO;
+import lombok.extern.slf4j.Slf4j;
 
+
+/**
+ * 多线程任务
+ *
+ */
+@Slf4j
 public class SpiderTaskMultThread implements Runnable {
+
     private String srcUrl;
+
+    //
+    private Integer num;
+
     private GoodsPO goodsPO;
     private ISpiderRule spiderRule;
-    private Integer num;
+
+    //模拟登陆
     private String loginCookie;
+
 
     public SpiderTaskMultThread(String srcUrl, ISpiderRule spiderRule, Integer num) {
         super();
@@ -16,6 +30,8 @@ public class SpiderTaskMultThread implements Runnable {
         this.num = num;
         this.spiderRule = spiderRule;
     }
+
+
 
     public SpiderTaskMultThread(String srcUrl, ISpiderRule spiderRule) {
         super();
@@ -38,30 +54,25 @@ public class SpiderTaskMultThread implements Runnable {
 
     @Override
     public void run() {
-
+        //判断goodsPO不为空
         if (goodsPO != null) {
             try {
                 spiderRule.runSpider(goodsPO);
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error("Exception:{}",e);
             }
         }
-
         if (srcUrl != null) {
-            if (num != null) {
-                spiderRule.runSpider(srcUrl, num);
-                System.out.println(111);
-            } else if (loginCookie != null) {
-                spiderRule.runSpider(srcUrl, loginCookie);
-                System.out.println(222);
-            } else {
-                try {
+            try {
+                if (num != null) {
+                    spiderRule.runSpider(srcUrl, num);
+                } else if (loginCookie != null) {
+                    spiderRule.runSpider(srcUrl, loginCookie);
+                } else {
                     spiderRule.runSpider(srcUrl);
-                    System.out.println(333);
-                } catch (Exception e) {
-                    System.out.println("异常了");
                 }
-
+            } catch (Exception e) {
+                log.error("Exception:{}",e);
             }
         }
 
