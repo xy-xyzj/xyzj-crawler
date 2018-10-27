@@ -1,4 +1,4 @@
-package com.xyzj.crawler.spidertask.getip;
+package com.xyzj.crawler.utils.getip;
 
 import com.xyzj.crawler.utils.proxyip.IPModel.IPMessage;
 import com.xyzj.crawler.utils.proxyip.database.MyRedis;
