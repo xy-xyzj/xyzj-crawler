@@ -43,8 +43,6 @@ public class SaveToMysql {
 
 	// 取得要执行的sql语句
 	private static String sqlBuilder(String tableName,Object object) {
-
-
 		Class<? extends Object> clazz = object.getClass();
 		Field[] fields = clazz.getDeclaredFields();
 
@@ -80,7 +78,7 @@ public class SaveToMysql {
 		return params;
 	}
 
-	private static String getMethodName(String fieldName) throws Exception {
+	private static String getMethodName(String fieldName) {
         // 把一个字符串的第一个字母大写、效率是最高的
 		byte[] items = fieldName.getBytes();
 		items[0] = (byte) ((char) items[0] - 'a' + 'A');

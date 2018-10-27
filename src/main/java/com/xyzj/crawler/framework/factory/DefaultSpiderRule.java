@@ -9,7 +9,9 @@ import com.xyzj.crawler.utils.savetomysql.SaveToMysql;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author lyy
@@ -20,6 +22,10 @@ public class DefaultSpiderRule extends AbstractSpiderRule implements ISpiderRule
 
     @Override
     public void runSpider(Map<String, Object> params) {
+        if (params.containsKey("pageNum")) {
+            log.info("这是第{}页",params.get("pageNum"));
+        }
+
         //约定优于配置
         //params中取出webUrl
         String webUrl = "http://www.baidu.com";
@@ -33,8 +39,6 @@ public class DefaultSpiderRule extends AbstractSpiderRule implements ISpiderRule
 
         //params中取出pattern 匹配规则
         String regexPattern = "京公网安备(.*?)号";
-
-
 
 
         if (params.containsKey("webUrl")) {
@@ -65,6 +69,18 @@ public class DefaultSpiderRule extends AbstractSpiderRule implements ISpiderRule
         //截取出目标数据
         List<String> stringList = RegexUtil.getSubUtil(htmlSource, regexPattern);
 
+        if (CollectionUtils.isEmpty(stringList)) {
+            log.info("没有匹配需要都内容......");
+            //如果有减1个操作
+            if (params.containsKey("countDownLatch")) {
+                CountDownLatch countDownLatch = (CountDownLatch)params.get("countDownLatch");
+                countDownLatch.countDown();
+                log.info("还有多少线程等待中{}",countDownLatch.getCount());
+            }
+
+            return;
+        }
+
         //第三步 往数据库中存
         Goods goods = new Goods();
         goods.setWebUrl(webUrl);
@@ -77,6 +93,14 @@ public class DefaultSpiderRule extends AbstractSpiderRule implements ISpiderRule
             goods.setName(stringList.get(i));
             saveToMysql.saveToMasql("goods", goods);
         }
+
+        //如果有减1个操作
+        if (params.containsKey("countDownLatch")) {
+            CountDownLatch countDownLatch = (CountDownLatch)params.get("countDownLatch");
+            countDownLatch.countDown();
+            log.info("还有{}个任务等待中",countDownLatch.getCount());
+        }
+
     }
 
 
