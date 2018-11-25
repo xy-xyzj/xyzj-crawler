@@ -11,12 +11,11 @@ import java.net.URL;
 /**
  * 爬虫工具类
  *
- * @author TongWei.Chen 2017-06-21 13:00:33
  */
 public final class SpiderUtil {
     private static final Logger THREAD_LOG = LoggerFactory.getLogger(SpiderUtil.class);
 
-    public static final byte[] getImageFromNetByUrl(final String strUrl) {
+    private static final byte[] getImageFromNetByUrl(final String strUrl) {
         try {
             URL url = new URL("http:" + strUrl);
             if(strUrl.startsWith("http:")) {

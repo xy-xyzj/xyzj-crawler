@@ -31,7 +31,7 @@ public class SelectTargetIP extends AbstractSpiderRule {
             //从redis数据库中随机拿出一个IP
             IPMessage ipMessage = redis.getIpByList();
             redis.close();
-            String htmlSource = MyHttpResponse.getHtmlWithProxyIp(goods.getWebUrl(),"utf-8", ipMessage.getIPAddress(), ipMessage.getIPPort(),null);
+            String htmlSource = HttpResponseUtil.getHtmlWithProxyIp(goods.getWebUrl(),"utf-8", ipMessage.getIPAddress(), ipMessage.getIPPort(),null);
             if (!StringUtils.isEmpty(htmlSource)) {
                 goods.setName(ipMessage.getIPAddress());
                 goods.setProvide(ipMessage.getIPPort());

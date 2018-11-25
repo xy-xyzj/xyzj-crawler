@@ -3,7 +3,7 @@ package com.xyzj.crawler.framework.factory;
 import com.xyzj.crawler.framework.abstracts.AbstractSpiderRule;
 import com.xyzj.crawler.framework.entity.Goods;
 import com.xyzj.crawler.framework.interfaces.ISpiderRule;
-import com.xyzj.crawler.utils.gethtmlstring.MyHttpResponse;
+import com.xyzj.crawler.utils.gethtmlstring.HttpResponseUtil;
 import com.xyzj.crawler.utils.parsehtmlstring.RegexUtil;
 import com.xyzj.crawler.utils.savetomysql.SaveToMysql;
 import java.util.HashMap;
@@ -55,7 +55,7 @@ public class DefaultSpiderRule extends AbstractSpiderRule implements ISpiderRule
         }
 
 
-        String htmlSource = MyHttpResponse.getHtml(webUrl, charset, headerInfos);
+        String htmlSource = HttpResponseUtil.getHtml(webUrl, charset, headerInfos);
 
         if (null == htmlSource || htmlSource.contains("Not Found") || htmlSource.contains("无法访问此网站")
                 || htmlSource.contains("你所访问的页面就如那些遇害的同道") || htmlSource.contains("药品不存在！")) {

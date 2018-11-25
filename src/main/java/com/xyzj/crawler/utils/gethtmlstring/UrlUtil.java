@@ -4,8 +4,6 @@ import java.io.UnsupportedEncodingException;
 /**
  * url转码、解码
  *
- * @author lifq 
- * @date 2015-3-17 下午04:09:35
  */
 public class UrlUtil {
     private final static String ENCODE = "utf-8";

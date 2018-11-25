@@ -1,32 +1,31 @@
 package com.xyzj.crawler.utils.gethtmlstring;
 
 
+import com.alibaba.fastjson.JSONObject;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.util.CollectionUtils;
 
 /**
- * Created by paranoid on 17-4-10.
- * 进行代理访问
- * <p>
- * setConnectTimeout：设置连接超时时间，单位毫秒.
- * setConnectionRequestTimeout：设置从connect Manager获取Connection 超时时间，单位毫秒.
- * 这个属性是新加的属性，因为目前版本是可以共享连接池的.
- * setSocketTimeout：请求获取数据的超时时间，单位毫秒.如果访问一个接口，多少时间内无法返回数据，
- * 就直接放弃此次调用。
+ *
  */
 
 @Slf4j
-public class MyHttpResponse {
+public class HttpResponseUtil {
 
+
+    //代理
     public static String getHtmlWithProxyIp(String url, String ip, String port, String charset, Map<String, String> headerInfos) {
 
         if (StringUtils.isEmpty(charset)) {
@@ -69,17 +68,23 @@ public class MyHttpResponse {
         return entity;
     }
 
+
+    //取得html
     public static String getHtml(String url, String charset, Map<String, String> headerInfos) {
 
-        if (StringUtils.isEmpty(charset)) {
+        //charset重置
+        if(StringUtils.isEmpty(charset)) {
             charset = "utf-8";
         }
 
         String entity = null;
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        RequestConfig config = RequestConfig.custom().setConnectTimeout(3000).
-                setSocketTimeout(3000).build();
+        RequestConfig config =
+                RequestConfig.custom()
+                        .setConnectTimeout(3000)
+                        .setSocketTimeout(3000).
+                        build();
         HttpGet httpGet = new HttpGet(url);
         httpGet.setConfig(config);
 
@@ -96,14 +101,65 @@ public class MyHttpResponse {
 
             //得到服务响应状态码
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                entity = EntityUtils.toString(httpResponse.getEntity(), "utf-8");
+                entity = EntityUtils.toString(httpResponse.getEntity(), charset);
             }
             httpResponse.close();
             httpClient.close();
         } catch (Exception e) {
             log.error("Exception:{}", e);
         }
-
         return entity;
     }
+
+
+    //取得html
+    public static String getJson(String url, String charset, Map<String, String> headerInfos,Map<String,String> bodyParams) {
+
+        //charset重置
+        if(StringUtils.isEmpty(charset)) {
+            charset = "utf-8";
+        }
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        RequestConfig config = RequestConfig.custom()
+                        .setConnectTimeout(3000)
+                        .setSocketTimeout(3000)
+                        .build();
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setConfig(config);
+
+        // 遍历map 设置请求头信息
+        if (!CollectionUtils.isEmpty(headerInfos)) {
+            for (String key : headerInfos.keySet()) {
+                httpPost.setHeader(key, headerInfos.get(key));
+            }
+        }
+        //遍历BodyParams
+        if (!CollectionUtils.isEmpty(bodyParams)) {
+            JSONObject jsonParam = new JSONObject();
+            for (String key : bodyParams.keySet()) {
+                jsonParam.put(key, bodyParams.get(key));
+            }
+            //解决中文乱码问题
+            StringEntity entity = new StringEntity(jsonParam.toString(),"utf-8");
+            entity.setContentEncoding("UTF-8");
+            entity.setContentType("application/json");
+            httpPost.setEntity(entity);
+        }
+
+        String httpResponseString = "";
+        try {
+            //客户端执行httpPost方法，返回响应
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            //得到服务响应状态码
+            if (httpResponse.getStatusLine().getStatusCode() == 200) {
+                httpResponseString = EntityUtils.toString(httpResponse.getEntity(), charset);
+            }
+            httpClient.close();
+        } catch (Exception e) {
+            log.error("Exception:{}", e);
+        }
+        return httpResponseString;
+    }
+
 }

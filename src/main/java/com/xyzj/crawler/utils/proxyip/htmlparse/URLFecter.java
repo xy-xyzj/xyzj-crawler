@@ -1,8 +1,8 @@
 package com.xyzj.crawler.utils.proxyip.htmlparse;
 
 
+import com.xyzj.crawler.utils.gethtmlstring.HttpResponseUtil;
 import com.xyzj.crawler.utils.proxyip.IPModel.IPMessage;
-import com.xyzj.crawler.utils.gethtmlstring.MyHttpResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -20,7 +20,7 @@ public class URLFecter {
     public static boolean urlParse(String url, String ip, String port,
                                            List<IPMessage> ipMessages1) {
         //调用一个类使其返回html源码
-        String html = MyHttpResponse.getHtmlWithProxyIp(url, ip, port,"utf-8",null);
+        String html = HttpResponseUtil.getHtmlWithProxyIp(url, ip, port,"utf-8",null);
 
         if(html != null) {
             //将html解析成DOM结构
@@ -59,7 +59,7 @@ public class URLFecter {
 
         for (int j = 1; j <size+1; j++) {
             String url = "http://www.xicidaili.com/nn/"+j;
-            String html = MyHttpResponse.getHtml(url,"utf-8",null);
+            String html = HttpResponseUtil.getHtml(url,"utf-8",null);
 
             //将html解析成DOM结构
             Document document = Jsoup.parse(html);
