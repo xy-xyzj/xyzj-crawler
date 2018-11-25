@@ -4,7 +4,6 @@ package com.xyzj.crawler.utils.proxyip.database;
 import com.xyzj.crawler.utils.proxyip.IPModel.IPMessage;
 import com.xyzj.crawler.utils.proxyip.IPModel.SerializeUtil;
 import java.util.List;
-import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.Jedis;
 
