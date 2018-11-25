@@ -11,8 +11,9 @@
 
 
 
-
 ## 二、使用帮助
+
+### 2-1 页面有用信息提取
 
 ```shell
 #第一步:克隆项目 导入idea
@@ -38,10 +39,26 @@ mysql.password=xxx
 --58分页多页面 开启多线程爬取
 3）DoCrawler58
 
-
 ```
 
    
+
+### 2-2 m3u8视频下载
+
+```shell
+#第一步:克隆项目 导入idea
+git clone https://github.com/lyyMyGitHub/my-crawler.git
+
+#第二步:运行
+--m3u8规则实现类
+1)com.xyzj.crawler.framework.factory.M3u8SpiderRule
+
+--m3u8下载实例
+2）com.xyzj.crawler.spidertask.dorule.DoRule51Cto
+
+```
+
+
 
 ## 三、爬取你想要的网站
 
