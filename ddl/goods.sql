@@ -28,3 +28,14 @@ CREATE TABLE `goods` (
   `orderNum` text COMMENT '排序列',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=744 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ungoods`;
+CREATE TABLE `ungoods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` text COMMENT '类型',
+  `name` text COMMENT '名称',
+  `webUrl` text COMMENT '来源网站',
+  `provide` text COMMENT '提供方',
+  `orderNum` text COMMENT '排序列',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=744 DEFAULT CHARSET=utf8;
