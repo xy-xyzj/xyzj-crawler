@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.xyzj.crawler</groupId>
-	<artifactId>my-crawler</artifactId>
+	<artifactId>xyzj-crawler</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>crawler</name>
 	<properties>
@@ -37,12 +37,6 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.31</version>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -110,11 +104,6 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
-		<dependency>
-			<groupId>net.sourceforge.htmlunit</groupId>
-			<artifactId>htmlunit</artifactId>
-			<version>2.28</version>
-		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -145,11 +134,6 @@
 		<dependency>
 			<groupId>us.codecraft</groupId>
 			<artifactId>webmagic-core</artifactId>
-			<version>0.7.3</version>
-		</dependency>
-		<dependency>
-			<groupId>us.codecraft</groupId>
-			<artifactId>webmagic-extension</artifactId>
 			<version>0.7.3</version>
 		</dependency>
 		<dependency>
@@ -198,7 +182,7 @@
 		<dependency>
 			<groupId>net.sourceforge.htmlunit</groupId>
 			<artifactId>htmlunit</artifactId>
-			<version>2.26</version>
+			<version>2.28</version>
 		</dependency>
 
 		<dependency>
