@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ZlrDoMain {
+public class SsqDoMain {
 
 
 	public static void main  (String[] args) throws Exception {

@@ -22,8 +22,6 @@ public class DoRuleTest {
 
         //封装参数
         HashMap<String, String> params = new HashMap<>();
-
-
         String url = "https://api.lianlianlvyou.com/v1/wx/booking?timestamp=1540645284482&Authorization=null";
         params.put("address","123");
         params.put("bookingDay","1546732800000");
