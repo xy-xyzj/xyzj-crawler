@@ -32,7 +32,6 @@ public class SsqDoMain {
 			return;
 		}
 
-
 		//第二步
 		//提取url
 		String numberRegexString = "<a href='(.*?).html'>";
