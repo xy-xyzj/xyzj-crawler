@@ -7,7 +7,7 @@ import java.util.Map;
  *  抽象类
  *  @author liuyangyang
  * */
-public abstract class AbstractSpiderRule implements ISpiderRule {
+public abstract class SpiderRuleAbstract implements ISpiderRule {
 
 	@Override
 	public void runSpider(Map<String, Object> params) {

@@ -1,6 +1,6 @@
 package com.xyzj.crawler.framework.factory;
 
-import com.xyzj.crawler.framework.abstracts.AbstractSpiderRule;
+import com.xyzj.crawler.framework.abstracts.SpiderRuleAbstract;
 import com.xyzj.crawler.framework.entity.Goods;
 import com.xyzj.crawler.framework.interfaces.ISpiderRule;
 import com.xyzj.crawler.utils.gethtmlstring.HttpResponseUtil;
@@ -18,7 +18,7 @@ import org.springframework.util.CollectionUtils;
  * @since 2018-10-27 13:08
  */
 @Slf4j
-public class DefaultSpiderRule extends AbstractSpiderRule implements ISpiderRule{
+public class DefaultSpiderRule extends SpiderRuleAbstract implements ISpiderRule{
 
     @Override
     public void runSpider(Map<String, Object> params) {

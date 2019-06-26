@@ -57,7 +57,7 @@ public class HttpResponseUtil {
 
             //得到服务响应状态码
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                entity = EntityUtils.toString(httpResponse.getEntity(), "utf-8");
+                entity = EntityUtils.toString(httpResponse.getEntity(), charset);
             }
             httpResponse.close();
             httpClient.close();
@@ -141,7 +141,7 @@ public class HttpResponseUtil {
                 jsonParam.put(key, bodyParams.get(key));
             }
             //解决中文乱码问题
-            StringEntity entity = new StringEntity(jsonParam.toString(),"utf-8");
+            StringEntity entity = new StringEntity(jsonParam.toString(),charset);
             entity.setContentEncoding("UTF-8");
             entity.setContentType("application/json");
             httpPost.setEntity(entity);

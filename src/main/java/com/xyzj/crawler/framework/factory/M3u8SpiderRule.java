@@ -1,6 +1,6 @@
 package com.xyzj.crawler.framework.factory;
 
-import com.xyzj.crawler.framework.abstracts.AbstractSpiderRule;
+import com.xyzj.crawler.framework.abstracts.SpiderRuleAbstract;
 import com.xyzj.crawler.framework.interfaces.ISpiderRule;
 import com.xyzj.crawler.utils.parsehtmlstring.ParseTsUrls;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2018-11-25 19:40
  */
 @Slf4j
-public class M3u8SpiderRule extends AbstractSpiderRule implements ISpiderRule  {
+public class M3u8SpiderRule extends SpiderRuleAbstract implements ISpiderRule  {
     @Override
     public void runSpider(Map<String, Object> params) {
         if (params.containsKey("pageNum")) {
