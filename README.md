@@ -1,4 +1,4 @@
-# my-crawler
+# my-crawler 
 
 ## 一、项目介绍
 
@@ -85,7 +85,7 @@ public static void main(String[] args) {
 ## 四、模拟登陆
 
 ```shell
-#其实已实现了。可以自己看看
+#其实已实现了。可以自己看看 
 params.put("headInfos",Map<String,String>);
 ```
 
@@ -96,4 +96,6 @@ params.put("headInfos",Map<String,String>);
 ```shell
 #已实现。看代码。后面写个说明
 ```
+
+欢迎star
 
