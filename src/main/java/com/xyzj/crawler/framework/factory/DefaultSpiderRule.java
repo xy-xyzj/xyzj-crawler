@@ -40,7 +40,6 @@ public class DefaultSpiderRule extends SpiderRuleAbstract implements ISpiderRule
         //params中取出pattern 匹配规则
         String regexPattern = "京公网安备(.*?)号";
 
-
         if (params.containsKey("webUrl")) {
             webUrl = (String) params.get("webUrl");
         }
@@ -54,9 +53,7 @@ public class DefaultSpiderRule extends SpiderRuleAbstract implements ISpiderRule
             regexPattern = (String) params.get("regexPattern");
         }
 
-
         String htmlSource = HttpResponseUtil.getHtml(webUrl, charset, headerInfos);
-
         if (null == htmlSource || htmlSource.contains("Not Found") || htmlSource.contains("无法访问此网站")
                 || htmlSource.contains("你所访问的页面就如那些遇害的同道") || htmlSource.contains("药品不存在！")) {
             log.info("网页不存在 webUrl={}", webUrl);
@@ -68,7 +65,6 @@ public class DefaultSpiderRule extends SpiderRuleAbstract implements ISpiderRule
         //第二步 正则匹配出内容
         //截取出目标数据
         List<String> stringList = RegexUtil.getSubUtil(htmlSource, regexPattern);
-
         if (CollectionUtils.isEmpty(stringList)) {
             log.info("没有匹配需要都内容......");
             //如果有减1个操作
@@ -86,14 +82,12 @@ public class DefaultSpiderRule extends SpiderRuleAbstract implements ISpiderRule
         goods.setWebUrl(webUrl);
         SaveToMysql saveToMysql = new SaveToMysql();
 
-
         for (int i = 0; i < stringList.size(); i++) {
             //  3-1 往数据库中存
             goods.setType(Integer.toString(i + 1));
             goods.setName(stringList.get(i));
             saveToMysql.saveToMasql("goods", goods);
         }
-
         //如果有减1个操作
         if (params.containsKey("countDownLatch")) {
             CountDownLatch countDownLatch = (CountDownLatch)params.get("countDownLatch");

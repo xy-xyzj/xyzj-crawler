@@ -35,8 +35,8 @@ public class SelectTargetIP extends AbstractSpiderRule {
             if (!StringUtils.isEmpty(htmlSource)) {
                 goods.setName(ipMessage.getIPAddress());
                 goods.setProvide(ipMessage.getIPPort());
-                ServiceImpl goodsPOServiceImpl = new ServiceImpl();
-                goodsPOServiceImpl.add("goods_ip", goods);
+                ServiceImpl goodsServiceImpl = new ServiceImpl();
+                goodsServiceImpl.add("goods_ip", goods);
             }
 
         } catch (Exception e) {

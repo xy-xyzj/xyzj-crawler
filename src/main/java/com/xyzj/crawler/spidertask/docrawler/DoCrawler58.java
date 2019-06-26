@@ -49,6 +49,7 @@ public class DoCrawler58 {
             String webUrl = "https://cq.58.com/shouji/pn"+i+"/?PGTID=0d300024-0002-5274-9167-f56e706b72b9&ClickID=1";
             //提取规则正则
             String regexPattern = "src=\"//img.58cdn.com.cn/n/images/list/noimg.gif\" alt=\"(.*?)\"/>";
+
             params.put("webUrl", webUrl);
             params.put("regexPattern", regexPattern);
             params.put("countDownLatch", countDownLatch);
