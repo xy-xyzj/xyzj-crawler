@@ -2,6 +2,8 @@ package com.xyzj.crawler.utils.savetomysql;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -39,6 +41,19 @@ public class SaveToMysql {
 		}
 		return true;
 	}
+
+	public List<Map<String, Object>> queryBySql(String sql) {
+		return jdbcTemplate.queryForList(sql);
+	}
+
+	public void executeBySql(String sql) {
+		jdbcTemplate.execute(sql);
+	}
+
+	public void batchUpdate(String sql, List<Object[]> param) {
+		jdbcTemplate.batchUpdate(sql, param);
+	}
+
 
 
 	// 取得要执行的sql语句

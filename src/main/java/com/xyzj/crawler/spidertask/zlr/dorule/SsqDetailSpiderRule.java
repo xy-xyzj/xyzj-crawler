@@ -8,12 +8,10 @@ import com.xyzj.crawler.utils.gethtmlstring.HttpResponseUtil;
 import com.xyzj.crawler.utils.parsehtmlstring.JsoupHtmlParser;
 import com.xyzj.crawler.utils.parsehtmlstring.RegexUtil;
 import com.xyzj.crawler.utils.savetomysql.SaveToMysql;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 
 @Slf4j
@@ -34,6 +32,14 @@ public class SsqDetailSpiderRule extends SpiderRuleAbstract {
             //第三步 往数据库中存
             SaveToMysql saveToMysql = new SaveToMysql();
             saveToMysql.saveToMasql("ungoods", unableGoods);
+
+            //如果有减1个操作
+            if (params.containsKey("countDownLatch")) {
+                CountDownLatch countDownLatch = (CountDownLatch)params.get("countDownLatch");
+                countDownLatch.countDown();
+                log.info("还有{}个任务等待中",countDownLatch.getCount());
+            }
+
             return;
         }
 
@@ -99,7 +105,12 @@ public class SsqDetailSpiderRule extends SpiderRuleAbstract {
             param.put("webUrl", newWebUrl+urlUtil.get(i)+".html");
             runSpider(param);
         }
-
+        //如果有减1个操作
+        if (params.containsKey("countDownLatch")) {
+            CountDownLatch countDownLatch = (CountDownLatch)params.get("countDownLatch");
+            countDownLatch.countDown();
+            log.info("还有{}个任务等待中",countDownLatch.getCount());
+        }
 
     }
 
