@@ -1,4 +1,4 @@
-package com.xyzj.crawler.framework.impl;
+package com.xyzj.crawler.framework.defaults;
 
 import com.xyzj.crawler.framework.abstracts.SpiderRuleAbstract;
 import com.xyzj.crawler.framework.entity.Param;

@@ -2,7 +2,7 @@ package com.xyzj.crawler.spidertask.example.dorule;
 
 import com.xyzj.crawler.framework.entity.Param;
 import com.xyzj.crawler.framework.factory.SpiderRuleFactory;
-import com.xyzj.crawler.framework.impl.DefaultM3u8SpiderRule;
+import com.xyzj.crawler.framework.defaults.DefaultM3u8SpiderRule;
 import com.xyzj.crawler.framework.interfaces.ISpiderRule;
 import java.util.HashMap;
 import java.util.UUID;
