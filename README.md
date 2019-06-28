@@ -10,7 +10,15 @@
     想学习一下具体实现,和探讨一下技术的小伙伴，也可以跟我团队一起讨论。
     交流学习--
     联系lyy qq:719882551。 
-    
+
+
+
+### 商务合作
+
+有偿提供公开资源爬取，有需求的朋友请加微信。
+
+![](.github/my.jpg)
+
 
 
 
@@ -32,7 +40,7 @@ mysql.username=xxx
 mysql.password=xxx
     
 
-#第四步:熟悉允许
+#第四步:熟悉代码
 --默认实现
 1)DefaultSpiderRuleTest 
 
@@ -60,24 +68,6 @@ mysql.password=xxx
 
 
 ## 三、爬取你想要的网站
-
-```java
-
-public static void main(String[] args) {
-
-        //工厂取得默认实例
-        ISpiderRule spiderRule = new SpiderRuleFactory().getInstance();
-
-        //封装参数
-        HashMap<String, Object> params = new HashMap<>();
-    
-    	//指定网站
-        params.put("webUrl", "http://xxx.com");
-    	//匹配需要的内容
-        params.put("regexPattern", "前缀(.*?)后缀);
-        spiderRule.runSpider(params);
-    }
-```
 
 ​        
 
