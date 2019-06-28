@@ -2,6 +2,7 @@ package com.xyzj.crawler.utils.gethtmlstring;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.ProxyConfig;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -9,6 +10,7 @@ import com.xyzj.crawler.framework.entity.Goods;
 import com.xyzj.crawler.framework.entity.Param;
 import com.xyzj.crawler.framework.enums.FactionEnum;
 import com.xyzj.crawler.utils.savetomysql.SaveToMysql;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHost;
@@ -37,20 +39,24 @@ public class HttpResponseUtil {
         FactionEnum factionEnum = param.getFactionEnum();
         switch (factionEnum) {
             case getHtml:
+                log.info("走 getHtml");
                 htmlSource = HttpResponseUtil.getHtml(param);
                 break;
             case getHtmlWithJavaScript:
+                log.info("走 getHtmlWithJavaScript");
                 htmlSource = HttpResponseUtil.getHtmlWithJavaScript(param);
                 break;
             case getJson:
+                log.info("走 getJson");
                 htmlSource = HttpResponseUtil.getJson(param);
                 break;
             default:
+                log.info("走 getHtml");
                 htmlSource = HttpResponseUtil.getHtml(param);
                 break;
         }
         if (org.springframework.util.StringUtils.isEmpty(htmlSource) || htmlSource.contains("Not Found") || htmlSource.contains("无法访问此网站") || htmlSource.contains("你所访问的页面就如那些遇害的同道") || htmlSource.contains("药品不存在！")) {
-            log.info("本次爬取目标失败 webUrl={}",param.getWebUrl());
+            log.info("本次爬取目标失败 webUrl={}", param.getWebUrl());
             //没拿到数据 存入ungoods表
             Goods unableGoods = new Goods();
             unableGoods.setWebUrl(param.getWebUrl());
@@ -58,22 +64,22 @@ public class HttpResponseUtil {
             saveToMysql.saveToMasql("ungoods", unableGoods);
             return null;
         }
-        log.info("本次爬取目标 webUrl={}",param.getWebUrl());
+        log.info("本次爬取目标 webUrl={}", param.getWebUrl());
         log.info(htmlSource);
         return htmlSource;
     }
 
-     /**
-      *
-      *========================================
-      * @description: 取得网页html信息
-      * @author: lyy
-      * @param:
-      * @return:
-      * @exception:
-      * @create: 2019/6/28 11:54
-      *
-      *========================================
+    /**
+     * ========================================
+     *
+     * @description: 取得网页html信息
+     * @author: lyy
+     * @param:
+     * @return:
+     * @exception:
+     * @create: 2019/6/28 11:54
+     * <p>
+     * ========================================
      */
     public static String getHtml(Param param) {
         String entity = null;
@@ -108,58 +114,98 @@ public class HttpResponseUtil {
         return entity;
     }
 
+
+    //取得html
+    public static String getHtml(String url, String charset, Map<String, String> headerInfos) {
+        //charset重置
+        if (StringUtils.isEmpty(charset)) {
+            charset = "utf-8";
+        }
+        String entity = null;
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        RequestConfig config =
+                RequestConfig.custom()
+                        .setConnectTimeout(3000)
+                        .setSocketTimeout(3000).
+                        build();
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.setConfig(config);
+
+        // 遍历map 设置请求头信息
+        if (!CollectionUtils.isEmpty(headerInfos)) {
+            for (String key : headerInfos.keySet()) {
+                httpGet.setHeader(key, headerInfos.get(key));
+            }
+        }
+        try {
+            //客户端执行httpGet方法，返回响应
+            CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
+
+            //得到服务响应状态码
+            if (httpResponse.getStatusLine().getStatusCode() == 200) {
+                entity = EntityUtils.toString(httpResponse.getEntity(), charset);
+            }
+            httpResponse.close();
+            httpClient.close();
+        } catch (Exception e) {
+            log.error("Exception:{}", e);
+        }
+        return entity;
+    }
+
     /**
+     * ========================================
      *
-     *========================================
      * @description: 取得执行javascript后的页面信息
      * @author: lyy
      * @param:
      * @return:
      * @exception:
      * @create: 2019/6/28 11:45
-     *
-     *========================================
+     * <p>
+     * ========================================
      */
     public static String getHtmlWithJavaScript(Param param) {
-
-        StringBuffer htmlSourceBuffer = new StringBuffer();
         try {
             //HtmlUnit请求web页面
-            try (WebClient wc = new WebClient()) {
-                //启用JS解释器，默认为true
-                wc.getOptions().setJavaScriptEnabled(true);
-                //禁用css支持
-                wc.getOptions().setCssEnabled(false);
-                //js运行错误时，是否抛出异常
-                wc.getOptions().setThrowExceptionOnScriptError(false);
-                //设置连接超时时间 ，这里是10S。如果为0，则无限期等待
-                wc.getOptions().setTimeout(10000);
-                //设置代理
-                if (StringUtils.isNotBlank(param.getProxyIp())) {
-                    wc.getOptions().setProxyConfig(new ProxyConfig(param.getProxyIp(), Integer.parseInt(param.getProxyPort())));
-                }
-                HtmlPage page = wc.getPage(param.getWebUrl());
-
-                //以xml的形式获取响应文本
-                htmlSourceBuffer.append(page.asXml());
+            WebClient wc = new WebClient();
+            //启用JS解释器，默认为true
+            wc.getOptions().setJavaScriptEnabled(true);
+            //js运行错误时，是否抛出异常
+            wc.getOptions().setThrowExceptionOnScriptError(false);
+            //禁用css支持
+            wc.getOptions().setActiveXNative(false);
+            wc.getOptions().setCssEnabled(false);
+            //设置支持AJAX
+            wc.setAjaxController(new NicelyResynchronizingAjaxController());
+            if (StringUtils.isNotBlank(param.getProxyIp())) {
+                wc.getOptions().setProxyConfig(new ProxyConfig(param.getProxyIp(), Integer.parseInt(param.getProxyPort())));
             }
+            if (param.getDelayTime() != null) {
+                Thread.sleep(param.getDelayTime());
+            }
+            HtmlPage page = wc.getPage(param.getWebUrl());
+            //以xml的形式获取响应文本
+            return page.asXml();
         } catch (Exception e) {
             //异常
+            log.info("没有抓到数据......");
         }
-        return htmlSourceBuffer.toString();
+        return null;
     }
 
-     /**
-      *
-      *========================================
-      * @description: 取得json数据
-      * @author: lyy
-      * @param:
-      * @return:
-      * @exception:
-      * @create: 2019/6/28 11:46
-      *
-      *========================================
+    /**
+     * ========================================
+     *
+     * @description: 取得json数据
+     * @author: lyy
+     * @param:
+     * @return:
+     * @exception:
+     * @create: 2019/6/28 11:46
+     * <p>
+     * ========================================
      */
     public static String getJson(Param param) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
