@@ -1,5 +1,6 @@
 package com.xyzj.crawler.framework.factory;
 
+import com.xyzj.crawler.framework.impl.DefaultSpiderRule;
 import com.xyzj.crawler.framework.interfaces.ISpiderRule;
 
 /**

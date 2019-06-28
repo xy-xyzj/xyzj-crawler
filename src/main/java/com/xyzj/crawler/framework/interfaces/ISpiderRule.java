@@ -1,6 +1,6 @@
 package com.xyzj.crawler.framework.interfaces;
 
-import java.util.Map;
+import com.xyzj.crawler.framework.entity.Param;
 
 
 /**
@@ -10,5 +10,5 @@ import java.util.Map;
  */
 public interface ISpiderRule {
 
-    void runSpider(Map<String, Object> params);
+    void runSpider(Param param);
 }

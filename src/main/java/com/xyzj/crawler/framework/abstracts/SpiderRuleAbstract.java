@@ -1,7 +1,7 @@
 package com.xyzj.crawler.framework.abstracts;
 
+import com.xyzj.crawler.framework.entity.Param;
 import com.xyzj.crawler.framework.interfaces.ISpiderRule;
-import java.util.Map;
 
 /**
  *  抽象类
@@ -10,7 +10,7 @@ import java.util.Map;
 public abstract class SpiderRuleAbstract implements ISpiderRule {
 
 	@Override
-	public void runSpider(Map<String, Object> params) {
+	public void runSpider(Param param) {
 
 	}
 }
