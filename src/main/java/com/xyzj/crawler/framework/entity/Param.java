@@ -27,14 +27,17 @@ public class Param {
     /** 网页编码 */
     private String charset = "utf-8";
 
-    /** 请求头信息 */
+    /** 请求头信息 模拟登陆*/
     private Map<String, String> headerInfos = Maps.newHashMap();
 
-    /** 请求体信息*/
+    /** 请求体信息 post json参数*/
     private  Map<String, String> bodyParams = Maps.newHashMap();
 
     /** 指定源码获取方法 */
     private FactionEnum factionEnum= FactionEnum.getHtml;
+
+    /** 页面加载延迟时间单位 毫秒 */
+    private Integer delayTime;
 
     /** 计数器锁 */
     private CountDownLatch countDownLatch;
@@ -44,9 +47,6 @@ public class Param {
 
     /** 代理port */
     private String proxyPort;
-
-    /** 页面加载延迟时间单位 毫秒 */
-    private Integer delayTime;
 
     /** 文件保存路径 */
     private String fileFullName;

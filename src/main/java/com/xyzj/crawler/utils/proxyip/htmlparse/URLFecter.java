@@ -64,7 +64,9 @@ public class URLFecter {
 
         for (int j = 1; j <size+1; j++) {
             String url = "http://www.xicidaili.com/nn/"+j;
-            String html = HttpResponseUtil.getHtml(url,"utf-8",null);
+            Param param = new Param();
+            param.setWebUrl(url);
+            String html = HttpResponseUtil.getHtml(param);
 
             //将html解析成DOM结构
             Document document = Jsoup.parse(html);

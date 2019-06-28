@@ -9,7 +9,6 @@ import com.xyzj.crawler.framework.entity.Goods;
 import com.xyzj.crawler.framework.entity.Param;
 import com.xyzj.crawler.framework.enums.FactionEnum;
 import com.xyzj.crawler.utils.savetomysql.SaveToMysql;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHost;
@@ -109,46 +108,6 @@ public class HttpResponseUtil {
         return entity;
     }
 
-
-    //取得html
-    public static String getHtml(String url, String charset, Map<String, String> headerInfos) {
-        //charset重置
-        if (StringUtils.isEmpty(charset)) {
-            charset = "utf-8";
-        }
-        String entity = null;
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        RequestConfig config =
-                RequestConfig.custom()
-                        .setConnectTimeout(3000)
-                        .setSocketTimeout(3000).
-                        build();
-        HttpGet httpGet = new HttpGet(url);
-        httpGet.setConfig(config);
-
-        // 遍历map 设置请求头信息
-        if (!CollectionUtils.isEmpty(headerInfos)) {
-            for (String key : headerInfos.keySet()) {
-                httpGet.setHeader(key, headerInfos.get(key));
-            }
-        }
-        try {
-            //客户端执行httpGet方法，返回响应
-            CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
-
-            //得到服务响应状态码
-            if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                entity = EntityUtils.toString(httpResponse.getEntity(), charset);
-            }
-            httpResponse.close();
-            httpClient.close();
-        } catch (Exception e) {
-            log.error("Exception:{}", e);
-        }
-        return entity;
-    }
-
     /**
      *
      *========================================
@@ -162,6 +121,7 @@ public class HttpResponseUtil {
      *========================================
      */
     public static String getHtmlWithJavaScript(Param param) {
+
         StringBuffer htmlSourceBuffer = new StringBuffer();
         try {
             //HtmlUnit请求web页面
@@ -179,6 +139,7 @@ public class HttpResponseUtil {
                     wc.getOptions().setProxyConfig(new ProxyConfig(param.getProxyIp(), Integer.parseInt(param.getProxyPort())));
                 }
                 HtmlPage page = wc.getPage(param.getWebUrl());
+
                 //以xml的形式获取响应文本
                 htmlSourceBuffer.append(page.asXml());
             }

@@ -28,7 +28,6 @@ public class SsqDetailSpiderRule extends SpiderRuleAbstract {
             //第二步 匹配出内容 并存储到数据库
             getGoods(param, htmlSource);
         }finally {
-
             //第三步 如果有减1个操作
             if (param.getCountDownLatch() !=null){
                 param.getCountDownLatch().countDown();
@@ -41,7 +40,7 @@ public class SsqDetailSpiderRule extends SpiderRuleAbstract {
     /**
      *
      *========================================
-     * @description: 这个方法得 自己研究怎么写
+     * @description: 这个方法得 自己研究怎么写 获取内容 并保存
      * @author: lyy
      * @param:
      * @return:
