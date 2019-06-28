@@ -1,6 +1,7 @@
 package com.xyzj.crawler.utils.proxyip.htmlparse;
 
 
+import com.xyzj.crawler.framework.entity.Param;
 import com.xyzj.crawler.utils.gethtmlstring.HttpResponseUtil;
 import com.xyzj.crawler.utils.proxyip.IPModel.IPMessage;
 import org.jsoup.Jsoup;
@@ -20,7 +21,11 @@ public class URLFecter {
     public static boolean urlParse(String url, String ip, String port,
                                            List<IPMessage> ipMessages1) {
         //调用一个类使其返回html源码
-        String html = HttpResponseUtil.getHtmlWithProxyIp(url, ip, port,"utf-8",null);
+        Param param = new Param();
+        param.setWebUrl(url);
+        param.setProxyIp(ip);
+        param.setProxyPort(port);
+        String html = HttpResponseUtil.getHtml(param);
 
         if(html != null) {
             //将html解析成DOM结构

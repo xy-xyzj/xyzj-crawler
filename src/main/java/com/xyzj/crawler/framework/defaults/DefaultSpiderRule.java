@@ -47,7 +47,7 @@ public  class DefaultSpiderRule extends SpiderRuleAbstract {
       *========================================
      */
     private void getGoods(Param param,  String htmlSource) {
-        String regexPattern = "<html>(.*?)</html>";
+        String regexPattern = "<html>([\\s\\S]*)</html>";
         List<String> stringList = RegexUtil.getSubUtil(htmlSource, regexPattern);
         if (CollectionUtils.isEmpty(stringList)) {
             log.info("没有匹配需要都内容......");
