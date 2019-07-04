@@ -46,7 +46,7 @@ public class DoRule51Cto {
         param.setHeaderInfos(headerInfosMap);
 
         //走你
-        spiderRule.runSpider(param);
+        spiderRule.runSpider(param,spiderRule);
 
     }
 }

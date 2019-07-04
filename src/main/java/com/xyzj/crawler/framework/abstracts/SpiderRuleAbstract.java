@@ -10,7 +10,7 @@ import com.xyzj.crawler.framework.interfaces.ISpiderRule;
 public abstract class SpiderRuleAbstract implements ISpiderRule {
 
 	@Override
-	public void runSpider(Param param) {
+	public void runSpider(Param param, ISpiderRule spiderRule) {
 
 	}
 }

@@ -9,10 +9,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.xyzj.crawler.framework.entity.Goods;
 import com.xyzj.crawler.framework.entity.Param;
 import com.xyzj.crawler.framework.enums.FactionEnum;
+import com.xyzj.crawler.utils.proxyip.IPModel.IPMessage;
+import com.xyzj.crawler.utils.proxyip.config.RedisUtil;
 import com.xyzj.crawler.utils.savetomysql.SaveToMysql;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
@@ -50,10 +50,6 @@ public class HttpResponseUtil {
                 log.info("走 getJson");
                 htmlSource = HttpResponseUtil.getJson(param);
                 break;
-            default:
-                log.info("走 getHtml");
-                htmlSource = HttpResponseUtil.getHtml(param);
-                break;
         }
         if (org.springframework.util.StringUtils.isEmpty(htmlSource) || htmlSource.contains("Not Found") || htmlSource.contains("无法访问此网站") || htmlSource.contains("你所访问的页面就如那些遇害的同道") || htmlSource.contains("药品不存在！")) {
             log.info("本次爬取目标失败 webUrl={}", param.getWebUrl());
@@ -86,8 +82,9 @@ public class HttpResponseUtil {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         //设置代理
         RequestConfig config = null;
-        if (StringUtils.isNotBlank(param.getProxyIp())) {
-            config = RequestConfig.custom().setConnectTimeout(3000).setSocketTimeout(3000).setProxy(new HttpHost(param.getProxyIp(), Integer.parseInt(param.getProxyPort()))).build();
+        if (param.getIsProxy()) {
+            IPMessage ipMessage = RedisUtil.getOneIp();
+            config = RequestConfig.custom().setConnectTimeout(3000).setSocketTimeout(3000).setProxy(new HttpHost(ipMessage.getIp(), Integer.parseInt(ipMessage.getPort()))).build();
         } else {
             config = RequestConfig.custom().setConnectTimeout(3000).setSocketTimeout(3000).build();
         }
@@ -110,46 +107,6 @@ public class HttpResponseUtil {
             httpClient.close();
         } catch (Exception e) {
             log.error("getHtml exception:{}", e);
-        }
-        return entity;
-    }
-
-
-    //取得html
-    public static String getHtml(String url, String charset, Map<String, String> headerInfos) {
-        //charset重置
-        if (StringUtils.isEmpty(charset)) {
-            charset = "utf-8";
-        }
-        String entity = null;
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        RequestConfig config =
-                RequestConfig.custom()
-                        .setConnectTimeout(3000)
-                        .setSocketTimeout(3000).
-                        build();
-        HttpGet httpGet = new HttpGet(url);
-        httpGet.setConfig(config);
-
-        // 遍历map 设置请求头信息
-        if (!CollectionUtils.isEmpty(headerInfos)) {
-            for (String key : headerInfos.keySet()) {
-                httpGet.setHeader(key, headerInfos.get(key));
-            }
-        }
-        try {
-            //客户端执行httpGet方法，返回响应
-            CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
-
-            //得到服务响应状态码
-            if (httpResponse.getStatusLine().getStatusCode() == 200) {
-                entity = EntityUtils.toString(httpResponse.getEntity(), charset);
-            }
-            httpResponse.close();
-            httpClient.close();
-        } catch (Exception e) {
-            log.error("Exception:{}", e);
         }
         return entity;
     }
@@ -179,8 +136,9 @@ public class HttpResponseUtil {
             wc.getOptions().setCssEnabled(false);
             //设置支持AJAX
             wc.setAjaxController(new NicelyResynchronizingAjaxController());
-            if (StringUtils.isNotBlank(param.getProxyIp())) {
-                wc.getOptions().setProxyConfig(new ProxyConfig(param.getProxyIp(), Integer.parseInt(param.getProxyPort())));
+            if (param.getIsProxy()) {
+                IPMessage ipMessage = RedisUtil.getOneIp();
+                wc.getOptions().setProxyConfig(new ProxyConfig(ipMessage.getIp(), Integer.parseInt(ipMessage.getPort())));
             }
             if (param.getDelayTime() != null) {
                 Thread.sleep(param.getDelayTime());
@@ -211,8 +169,9 @@ public class HttpResponseUtil {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         //设置代理
         RequestConfig config = null;
-        if (StringUtils.isNotBlank(param.getProxyIp())) {
-            config = RequestConfig.custom().setConnectTimeout(3000).setSocketTimeout(3000).setProxy(new HttpHost(param.getProxyIp(), Integer.parseInt(param.getProxyPort()))).build();
+        if (param.getIsProxy()) {
+            IPMessage ipMessage = RedisUtil.getOneIp();
+            config = RequestConfig.custom().setConnectTimeout(3000).setSocketTimeout(3000).setProxy(new HttpHost(ipMessage.getIp(), Integer.parseInt(ipMessage.getPort()))).build();
         } else {
             config = RequestConfig.custom().setConnectTimeout(3000).setSocketTimeout(3000).build();
         }

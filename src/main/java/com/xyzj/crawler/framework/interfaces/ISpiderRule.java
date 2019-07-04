@@ -10,5 +10,8 @@ import com.xyzj.crawler.framework.entity.Param;
  */
 public interface ISpiderRule {
 
-    void runSpider(Param param);
+    void runSpider(Param param,ISpiderRule spiderRule);
+
+    void handlerGoods(Param param, String htmlSource);
+
 }

@@ -2,6 +2,7 @@ package com.xyzj.crawler.framework.defaults;
 
 import com.xyzj.crawler.framework.abstracts.SpiderRuleAbstract;
 import com.xyzj.crawler.framework.entity.Param;
+import com.xyzj.crawler.framework.interfaces.ISpiderRule;
 import com.xyzj.crawler.utils.parsehtmlstring.ParseTsUrls;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,9 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DefaultM3u8SpiderRule extends SpiderRuleAbstract {
     @Override
-    public void runSpider(Param param) {
+    public void runSpider(Param param, ISpiderRule spiderRule) {
         //执行解析
         new ParseTsUrls(param.getWebUrl(), param.getHeaderInfos(), param.getFileFullName()).httpRequestForTsUrls();
         log.info("文件生成成功......");
+    }
+
+    @Override
+    public void handlerGoods(Param param, String htmlSource) {
+
     }
 }

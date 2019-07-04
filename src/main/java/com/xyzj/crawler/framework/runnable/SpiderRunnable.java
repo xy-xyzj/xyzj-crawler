@@ -28,7 +28,7 @@ public class SpiderRunnable implements Runnable {
 
     @Override
     public void run() {
-        spiderRule.runSpider(param);
+        spiderRule.runSpider(param,spiderRule);
 
     }
 }

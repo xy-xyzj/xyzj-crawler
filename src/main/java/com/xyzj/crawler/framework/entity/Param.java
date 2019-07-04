@@ -42,6 +42,10 @@ public class Param {
     /** 计数器锁 */
     private CountDownLatch countDownLatch;
 
+
+    /** isProxy */
+    private Boolean isProxy = false;
+
     /** 代理ip */
     private String proxyIp;
 
@@ -50,4 +54,9 @@ public class Param {
 
     /** 文件保存路径 */
     private String fileFullName;
+
+    /**
+     * 其余定制参数
+     */
+    private Map<String, Object> extParamMap = Maps.newHashMap();
 }

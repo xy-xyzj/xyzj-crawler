@@ -21,7 +21,7 @@ public class DoRule58 {
         param.setWebUrl("https://cq.58.com/shouji/?PGTID=0d100000-0002-5d3a-b0c9-e83a870d03be&ClickID=3");
 
         //走你
-        spiderRule.runSpider(param);
+        spiderRule.runSpider(param,spiderRule);
 
 
 

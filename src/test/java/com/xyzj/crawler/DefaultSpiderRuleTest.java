@@ -17,6 +17,6 @@ public class DefaultSpiderRuleTest {
         Param param = new Param();
         param.setWebUrl("https://www.baidu.com");
         ISpiderRule spiderRule = new SpiderRuleFactory().getInstance();
-        spiderRule.runSpider(param);
+        spiderRule.runSpider(param,spiderRule);
     }
 }
