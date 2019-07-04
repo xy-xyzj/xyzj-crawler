@@ -42,13 +42,14 @@ public class RedisUtil {
      * ========================================
      */
     public static IPMessage getOneIp() {
-        Object o = SerializeUtil.unSerialize(jedis.lpop("IpPool").getBytes());
-        if (o instanceof IPMessage) {
-            return (IPMessage) o;
-        } else {
-            log.info("不是IPMessage实例~");
-            return null;
+        byte[] bytes = jedis.lpop("IpPool".getBytes());
+        if (bytes != null) {
+            Object o = SerializeUtil.unSerialize(bytes);
+            if (o instanceof IPMessage) {
+                return (IPMessage) o;
+            }
         }
+        return null;
     }
 
     public static void deleteKey(String key) {
