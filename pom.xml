@@ -115,26 +115,26 @@
 			<version>4.8.2</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>${org.poi-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>${org.poi-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-examples</artifactId>
-			<version>${org.poi-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-excelant</artifactId>
-			<version>${org.poi-version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.poi</groupId>-->
+			<!--<artifactId>poi</artifactId>-->
+			<!--<version>${org.poi-version}</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.apache.poi</groupId>-->
+			<!--<artifactId>poi-ooxml</artifactId>-->
+			<!--<version>${org.poi-version}</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.apache.poi</groupId>-->
+			<!--<artifactId>poi-examples</artifactId>-->
+			<!--<version>${org.poi-version}</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.apache.poi</groupId>-->
+			<!--<artifactId>poi-excelant</artifactId>-->
+			<!--<version>${org.poi-version}</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>us.codecraft</groupId>
 			<artifactId>webmagic-core</artifactId>
@@ -194,6 +194,11 @@
 			<artifactId>lombok</artifactId>
 			<version>1.16.10</version>
 		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>easyexcel</artifactId>
+			<version>2.0.5</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -213,7 +218,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.xyzj.crawler.Application</mainClass>
+					<mainClass>com.xyzj.bigdata.in.ReadTest</mainClass>
 				</configuration>
 				<executions>
 					<execution>

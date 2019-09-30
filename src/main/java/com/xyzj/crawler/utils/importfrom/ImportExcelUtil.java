@@ -1,20 +1,22 @@
 package com.xyzj.crawler.utils.importfrom;
 
-import com.alibaba.fastjson.JSON;
-import org.apache.log4j.Logger;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 ;
 
@@ -24,7 +26,6 @@ import java.util.*;
  *
  */
 public class ImportExcelUtil {
-    private static Logger log = Logger.getLogger(ImportExcelUtil.class);
     private final static String excel2003L = ".xls"; // 2003- 版本的excel
     private final static String excel2007U = ".xlsx"; // 2007+ 版本的excel
     /**
@@ -65,7 +66,6 @@ public class ImportExcelUtil {
             } else{
                 continue;
             }
-            log.info(JSON.toJSONString(title));
             // 遍历当前sheet中的所有行
             for (int j = 1; j < sheet.getLastRowNum() + 1; j++) {
                 row = sheet.getRow(j);
@@ -155,8 +155,6 @@ public class ImportExcelUtil {
                 resultSet.add(ls.get(i).get("name").toString());
             }
         }
-        System.out.println(JSON.toJSONString(resultSet));
-        System.out.println("-----------------------------------------------");
-        System.out.println(JSON.toJSONString(ls));
+
     }
 }
