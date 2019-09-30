@@ -2,7 +2,7 @@ package com.xyzj.bigdata.in;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.xyzj.crawler.utils.savetomysql.SaveToMysql;
+import com.xyzj.crawler.utils.savetomysql.SaveToOracle;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -54,8 +54,8 @@ public class DemoDataListener extends AnalysisEventListener<DemoData> {
             param.add(arr);
         }
         //保存到数据库
-        SaveToMysql saveToMysql = new SaveToMysql();
-        saveToMysql.batchUpdate(sql,param);
+        SaveToOracle saveToOracle = new SaveToOracle();
+        saveToOracle.batchUpdate(sql,param);
         LOGGER.info("存储数据库成功！");
     }
 
