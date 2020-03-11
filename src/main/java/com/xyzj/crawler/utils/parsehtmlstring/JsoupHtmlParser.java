@@ -543,8 +543,8 @@ public class JsoupHtmlParser {
 					for (String sel : removeSelector) {
 						ele.select(sel).remove();
 					}
-					// result = ele.toString();
-					result = JsoupHtmlParser.getCleanTxt(ele.toString());
+					 result = ele.toString();
+					//result = JsoupHtmlParser.getCleanTxt(ele.toString());
 					break;
 				}
 			}

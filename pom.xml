@@ -4,7 +4,7 @@
 	<groupId>com.xyzj.crawler</groupId>
 	<artifactId>xyzj-crawler</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>crawler</name>
+	<name>xyzj-crawler</name>
 	<properties>
 		<!--日志管理 -->
 		<logback.version>1.1.2</logback.version>
@@ -206,6 +206,11 @@
 			<version>12.1.0.1-atlassian-hosted</version>
 		</dependency>
 
+		<dependency>
+			<groupId>gui.ava</groupId>
+			<artifactId>html2image</artifactId>
+			<version>0.9</version>
+		</dependency>
 
 	</dependencies>
 
@@ -221,20 +226,6 @@
 					<target>${jdk.version}</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>com.xyzj.bigdata.in.ReadTest</mainClass>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
