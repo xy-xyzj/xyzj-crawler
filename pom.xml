@@ -7,7 +7,7 @@
 	<name>crawler</name>
 	<properties>
 		<!--日志管理 -->
-		<logback.version>1.1.2</logback.version>
+		<logback.version>1.2.0</logback.version>
 		<logback-ext-spring.version>0.1.4</logback-ext-spring.version>
 		<log4j-over-slf4j.version>1.7.20</log4j-over-slf4j.version>
 		<jcl-over-slf4j.version>1.7.12</jcl-over-slf4j.version>
